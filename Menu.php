@@ -6,8 +6,16 @@ use Piwik\Menu\MenuTop;
 use Piwik\Piwik;
 use Piwik\Plugin\Menu as MatomoMenu;
 
+/**
+ * WAI Portal menu provider.
+ */
 class Menu extends MatomoMenu
 {
+    /**
+     * Configure analytics items menu.
+     *
+     * @param MenuTop $menu the menu reference
+     */
     public function configureTopMenu(MenuTop $menu)
     {
         // Intercept menu configuration to remove unwanted icons

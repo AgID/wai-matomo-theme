@@ -9,23 +9,35 @@
 namespace Piwik\Plugins\WAIPortal;
 
 use Piwik\Piwik;
-use Piwik\Settings\Setting;
 use Piwik\Settings\FieldConfig;
+use Piwik\Settings\Plugin\SystemSettings as BaseSystemSettings;
 use Piwik\Validators\NotEmpty;
 
 /**
- * Defines Settings for WAIPortal.
+ * System Settings for WAIPortal Theme.
  */
-class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
+class SystemSettings extends BaseSystemSettings
 {
-    /** @var Setting */
+    /**
+     * WAI Portal URL setting.
+     *
+     * @var string the URL
+     */
     public $waiUrl;
 
+    /**
+     * Define system settings.
+     */
     protected function init()
     {
         $this->waiUrl = $this->createDescriptionSetting();
     }
 
+    /**
+     * Create WAI Portal URL setting.
+     *
+     * @return \Piwik\Settings\Plugin\SystemSetting the configured setting
+     */
     private function createDescriptionSetting()
     {
         $default = 'https://localhost';
