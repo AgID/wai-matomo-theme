@@ -1,0 +1,24 @@
+{
+    "links": [
+        {
+            "name": "PrivacyPolicy",
+            "url": "%s/privacy"
+        },
+        {
+            "name": "NoteLegali",
+            "url": "%s/legal-notes"
+        },
+        {
+            "name": "OpenData",
+            "url": "%s/open-data"
+        },
+        {
+            "name": "Faq",
+            "url": "%s/faq"
+        },
+        {
+            "name": "Contatti",
+            "url": "%s/contacts"
+        }
+    ]
+}

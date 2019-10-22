@@ -1,0 +1,49 @@
+<!-- Footer -->
+<footer class="it-footer">
+    <div class="it-footer-main">
+        <div class="it-container">
+            <section>
+                <div class="it-row clearfix align-items-center">
+                    <div class="it-col-12 it-col-md-6">
+                        <div class="it-brand-wrapper">
+                            <a class="d-inline-flex" href="/">
+                                <img alt="footer logo" class="it-icon" src="{{ pluginPath }}/svg/footer_logo.svg">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="pb-5 py-md-0 ml-md-auto">
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2">{{ 'WAIPortal_SeguiciSu'|translate }}</span>
+                            <ul class="list-inline text-left m-0">
+                                {% for social in socials %}
+                                <li class="list-inline-item ml-1">
+                                    <a class="text-white" href="{{ social['url'] }}" aria-label="{{ social['name'] }}">
+                                        <svg class="it-icon it-icon-sm it-icon-white align-top">
+                                            <use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-{{ social['name'] }}"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="it-footer-small-prints clearfix">
+        <div class="it-container d-flex align-items-end align-items-md-center">
+            <h3 class="sr-only">{{ 'WAIPortal_NavigazioneSecondaria'|translate }}</h3>
+            <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row pl-0">
+                {% for link in links %}
+                <li class="list-inline-item px-0">
+                    <a class="nav-link" href="{{ link['url']|format(waiUrl) }}">
+                        <span class="font-weight-semibold analogue-2-color">{{ "WAIPortal_#{link['name']}"|translate }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->

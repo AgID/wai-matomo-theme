@@ -1,6 +1,14 @@
 {
     "WAIPortal": {
         "WAIPortalBaseURLTitle": "WAI Portal URL",
-        "WAIPortalBaseURLDescription": "Web Analytics Italia Portal URL"
+        "WAIPortalBaseURLDescription": "Web Analytics Italia Portal URL",
+        "BackToWai": "Back to my sites",
+        "SeguiciSu": "Follow us",
+        "NavigazioneSecondaria": "alternative navigation",
+        "PrivacyPolicy": "Privacy policy",
+        "NoteLegali": "Legal notes",
+        "OpenData": "Open data",
+        "Faq": "FAQ",
+        "Contatti": "Contact us"
     }
 }
