@@ -135,6 +135,14 @@ class WAIPortal extends Plugin
     }
 
     /**
+     * Manage plugin loaded event.
+     */
+    public function postLoad()
+    {
+        $this->activate();
+    }
+
+    /**
      * Manage plugin activation.
      */
     public function activate() {
