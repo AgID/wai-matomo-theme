@@ -3,6 +3,10 @@
     #secondNavBar {
       background-color: transparent;
 
+      &.Menu--admin .navbar > li > .item {
+        color: $navbar-item-color;
+      }
+
       & + .pageWrap {
         padding-left: 18px !important;
       }
@@ -13,6 +17,10 @@
 
         li, a {
           color: $second-navbar-item-color;
+
+          &.item:hover {
+            color: $second-navbar-item-hover-color;
+          }
         }
 
         li.menuTab > ul[role=menu] li a.item {
