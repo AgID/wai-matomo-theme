@@ -10,6 +10,10 @@
       padding-left: 248px; //224 secondNavBar + 6 container + 18 pageWrap
     }
 
+    > span.icon:last-of-type {
+      display: none;
+    }
+
     //Site selector
     .siteSelector {
       .dropdown {
@@ -97,6 +101,7 @@
       @include media-breakpoint-up(md) {
         flex: auto;
         margin-left: 50px;
+        margin-right: 0;
       }
 
       .icon-search {
