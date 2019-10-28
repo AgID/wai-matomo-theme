@@ -27,6 +27,8 @@ class WAIPortal extends Plugin
      */
     const PLUGIN_PATH = 'plugins/WAIPortal';
 
+    const BACKUP_FILE_SUFFIX = '.bkp';
+
     /**
      * Socials list
      *
@@ -163,6 +165,10 @@ class WAIPortal extends Plugin
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
+
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/maintenance.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutHeader.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutFooter.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
     }
 
     /**
@@ -173,5 +179,18 @@ class WAIPortal extends Plugin
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserSvgLogo());
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '0', true);
+
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl' . self::BACKUP_FILE_SUFFIX);
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl' . self::BACKUP_FILE_SUFFIX);
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX);
+    }
+
+    private function backupAndReplaceFile($sourceFile, $destinationFile) {
+        @copy($destinationFile, $destinationFile . self::BACKUP_FILE_SUFFIX);
+        @copy($sourceFile, $destinationFile);
+    }
+
+    private function restoreOriginalFiles($sourceFile) {
+        @copy($sourceFile, rtrim($sourceFile, self::BACKUP_FILE_SUFFIX));
     }
 }
