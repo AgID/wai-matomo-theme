@@ -26,6 +26,7 @@ const Paths = {
         'lang/**/*',
         'svg/**/*',
         'templates/**/*',
+        'stylesheets/**/*',
         '*.php',
         'plugin.json',
         'README.md',
