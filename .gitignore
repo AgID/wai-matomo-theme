@@ -1,6 +1,8 @@
 # Dependencies
 composer.phar
-/vendor/
+vendor
+node_modules
+dist
 
 # Local development
 .idea
