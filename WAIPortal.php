@@ -27,6 +27,11 @@ class WAIPortal extends Plugin
      */
     const PLUGIN_PATH = 'plugins/WAIPortal';
 
+    /**
+     * File backup suffix
+     *
+     * @var string the suffix
+     */
     const BACKUP_FILE_SUFFIX = '.bkp';
 
     /**
@@ -185,11 +190,22 @@ class WAIPortal extends Plugin
         $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX);
     }
 
+    /**
+     * Replace a file backing up the existing destination.
+     *
+     * @param string $sourceFile overriding file path
+     * @param string $destinationFile destination file path
+     */
     private function backupAndReplaceFile($sourceFile, $destinationFile) {
         @copy($destinationFile, $destinationFile . self::BACKUP_FILE_SUFFIX);
         @copy($sourceFile, $destinationFile);
     }
 
+    /**
+     * Restore a backed up file.
+     *
+     * @param string $sourceFile file path to restore
+     */
     private function restoreOriginalFiles($sourceFile) {
         @copy($sourceFile, rtrim($sourceFile, self::BACKUP_FILE_SUFFIX));
     }
