@@ -130,7 +130,7 @@ gulp.task('import-bi-svg', () => {
 gulp.task('zip', () => {
     return gulp
         .src(Paths.RELEASE_DIST + '/**/*')
-        .pipe(tar('WAIPortal_' + pkg.version + '.tar'))
+        .pipe(tar('WAIPortal_' + pkg.version + '.tar', { mode: null }))
         .pipe(gzip())
         .pipe(gulp.dest(Paths.RELEASE_DIST))
 })
