@@ -5,15 +5,15 @@
     <div class="it-nav-wrapper">
         <div class="it-header-center-wrapper">
             <div class="it-container">
-                <div class="it-row it-col-12">
+                <div class="it-row align-items-center col-12">
                     {% if not userLogin is same as('anonymous') and not userIsSuperUser %}
-                    <a class="btn btn-outline-primary btn-icon" role="button" href="{{ waiUrl }}">
-                        <svg class="it-icon it-icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-arrow-left"></use></svg>
+                    <a class="it-btn btn-border-white btn-icon" role="button" href="{{ waiUrl }}">
+                        <svg class="icon icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-arrow-left"></use></svg>
                         <span>{{ 'WAIPortal_BackToWai'|translate }}</span>
                     </a>
                     {% elseif userIsSuperUser %}
-                    <a class="btn btn-outline-primary btn-icon" role="button" href="{{ linkTo({'module': 'Login', 'action': 'logout'})}}">
-                        <svg class="it-icon it-icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-unlocked"></use></svg>
+                    <a class="it-btn btn-border-white btn-icon btn-md-icon" role="button" href="{{ linkTo({'module': 'Login', 'action': 'logout'})}}">
+                        <svg class="icon icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-unlocked"></use></svg>
                         <span>{{ 'General_Logout'|translate }}</span>
                     </a>
                     {% endif %}
@@ -24,7 +24,7 @@
                                 <div class="it-brand-text">
                                     <h2 class="d-flex align-items-center">
                                         Dashboard
-                                        <small><span class="it-badge it-badge-light it-badge-pill ml-2">alpha</span></small>
+                                        <small><span class="badge badge-primary badge-pill ml-2">alpha</span></small>
                                     </h2>
                                 </div>
                             </a>

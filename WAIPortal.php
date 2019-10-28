@@ -62,11 +62,32 @@ class WAIPortal extends Plugin
      */
     public function registerEvents() {
         return array(
+            'AssetManager.getStylesheetFiles' => array(
+                'function' => 'addCssFiles',
+                'after' => true,
+            ),
+            'AssetManager.getJavaScriptFiles' => array(
+                'function' => 'addJavaScriptFiles',
+                'after' => true,
+            ),
+            'Template.bodyClass' => 'handleBodyClass',
             'Template.beforeTopBar' => 'handleAddTopBar',
             'Template.header' => 'handleTemplateHeader',
             'Template.pageFooter' => 'handleTemplatePageFooter',
             'Template.loginNav' => 'handleLoginNav',
         );
+    }
+
+    public function addCssFiles(&$stylesheets) {
+        $stylesheets[] = 'plugins/WAIPortal/stylesheets/wai-bootstrap-italia.min.css';
+    }
+
+    public function addJavaScriptFiles(&$jsFiles) {
+        $jsFiles[] = 'plugins/WAIPortal/javascripts/wai-bootstrap-italia.min.js';
+    }
+
+    public function handleBodyClass(&$outstring, $page) {
+        return $outstring .= ' wai-theme';
     }
 
     /**

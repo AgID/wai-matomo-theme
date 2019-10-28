@@ -1,0 +1,39 @@
+@import 'customs/mixins/background';
+
+body {
+  position: relative;
+}
+
+.h-bars {
+  left: 0;
+  position: absolute;
+  top: 63%;
+  z-index: -1;
+
+  .graphic-container {
+    @include graphic-widths();
+  }
+}
+
+.target {
+  position: absolute;
+  right: 0;
+  top: 43%;
+  z-index: -1;
+
+  .graphic-container{
+    @include graphic-widths();
+  }
+}
+
+.v-bars {
+  @include v-bars-right-position();
+  position: absolute;
+  right: 21%;
+  top: 38%;
+  z-index: -1;
+
+  .graphic-container {
+    @include graphic-widths();
+  }
+}

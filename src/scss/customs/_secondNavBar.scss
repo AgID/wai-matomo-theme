@@ -1,0 +1,59 @@
+#root {
+  .page {
+    #secondNavBar {
+      background-color: transparent;
+
+      .navbar {
+        padding-bottom: 0;
+        padding-top: 0;
+
+        li, a {
+          color: $second-navbar-item-color;
+        }
+
+        li.menuTab > ul[role=menu] li a.item {
+          padding-left: 47px;
+        }
+
+        > li.active {
+          background-color: $second-navbar-active-item-bg-color;
+
+          a.item {
+            background-color: $second-navbar-active-item-bg-color;
+            box-sizing: border-box;
+          }
+
+          > a.item {
+            border-left: 4px solid $second-navbar-active-item-color;
+            padding-left: 15px;
+          }
+        }
+
+        ul[role=menu] {
+
+          > li.active {
+
+            a.item {
+              box-sizing: border-box;
+            }
+
+            > a.item {
+              background-color: $second-navbar-active-item-bg-color;
+              border-left: 4px solid $second-navbar-active-item-color;
+              color: $second-navbar-item-color;
+              padding-left: 43px !important;
+            }
+
+            li.menuTab {
+              background-color: $second-navbar-active-item-bg-color;
+            }
+          }
+        }
+
+        a {
+          @include make-second-navbar-font();
+        }
+      }
+    }
+  }
+}

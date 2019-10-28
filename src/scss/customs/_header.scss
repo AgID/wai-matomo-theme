@@ -1,0 +1,105 @@
+@import 'node_modules/bootstrap-italia/src/scss/custom/header';
+@import 'node_modules/bootstrap-italia/src/scss/custom/headercenter';
+
+.it-header-wrapper {
+  background: linear-gradient(58.17deg, $header-center-bg-color .03%, $header-center-bg-secondary-color 48.48%, $header-center-bg-tertiary-color 100%);
+  color: $header-wrapper-color;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  text-align: left;
+  -webkit-text-size-adjust: 100%;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 18px;
+    line-height: 1.555;
+  }
+
+  .it-header-center-wrapper {
+    background: transparent;
+
+    .it-btn {
+      @extend .btn;
+      box-shadow: none !important;
+      font-size: 18px !important;
+      font-weight: normal !important;
+      letter-spacing: -.45px !important;
+      line-height: 27px !important;
+
+      &.btn-border-white {
+        border: 1px solid $white;
+        box-sizing: border-box;
+        color: $white;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+
+    .btn-icon {
+      @import 'node_modules/bootstrap-italia/src/scss/utilities/icons';
+
+      @include media-breakpoint-down(md) {
+        padding: 6px !important;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    @import 'node_modules/bootstrap/scss/buttons';
+    @import 'node_modules/bootstrap-italia/src/scss/custom/buttons';
+
+    .it-header-center-content-wrapper {
+      -webkit-box-pack: justify;
+      flex-basis: 50%;
+      flex-grow: 1;
+      -ms-flex-pack: justify;
+      -ms-flex-preferred-size: 100%;
+      justify-content: center;
+
+      @include media-breakpoint-up(lg) {
+        flex-basis: 50%;
+        flex-grow: 1;
+        justify-content: center;
+      }
+
+      .it-brand-wrapper {
+
+        a {
+          text-decoration: none;
+
+          .it-header-icon {
+            fill: $white;
+            height: 28px;
+            margin-right: 12.5px;
+            width: 30px;
+          }
+
+          .it-brand-text {
+            padding-right: 0;
+
+            h2 {
+              color: $white;
+              font-size: 22px;
+              font-weight: bold;
+              letter-spacing: -.55px;
+              line-height: 48px;
+            }
+          }
+        }
+      }
+
+      @import 'node_modules/bootstrap/scss/badge';
+
+      .badge {
+        background-color: $header-badge-bg-color;
+        position: static;
+      }
+    }
+  }
+}
