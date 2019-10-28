@@ -32,6 +32,9 @@ const Paths = {
         'LICENSE',
         'CHANGELOG.md',
     ],
+    SOURCE_BI_SVG: [
+        'node_modules/bootstrap-italia/dist/svg/sprite.svg',
+    ],
     SOURCE_SCSS: 'src/scss/' + pkg.name + '.scss',
     SOURCE_JS: [
         'src/js/plugins/site-name.js',
@@ -117,6 +120,12 @@ gulp.task('copy-files', () => {
         .pipe(gulp.dest(Paths.DIST))
 })
 
+gulp.task('import-bi-svg', () => {
+    return gulp
+        .src(Paths.SOURCE_BI_SVG)
+        .pipe(gulp.dest(Paths.DIST + '/svg'))
+})
+
 gulp.task('zip', () => {
     return gulp
         .src(Paths.RELEASE_DIST + '/**/*')
@@ -126,9 +135,17 @@ gulp.task('zip', () => {
 })
 
 gulp.task(
+    'import-assets',
+    gulp.series(
+        'import-bi-svg',
+    )
+)
+
+gulp.task(
     'build-library',
     gulp.series(
         'copy-files',
+        'import-assets',
         'scss-min',
         'js-min',
     )
