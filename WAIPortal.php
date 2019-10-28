@@ -166,8 +166,8 @@ class WAIPortal extends Plugin
      * Manage plugin activation.
      */
     public function activate() {
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/images/logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/images/wai-logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/wai-logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
 
