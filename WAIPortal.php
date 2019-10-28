@@ -79,11 +79,11 @@ class WAIPortal extends Plugin
     }
 
     public function addCssFiles(&$stylesheets) {
-        $stylesheets[] = 'plugins/WAIPortal/stylesheets/wai-bootstrap-italia.min.css';
+        $stylesheets[] = 'plugins/WAIPortal/stylesheets/wai-matomo-theme.min.css';
     }
 
     public function addJavaScriptFiles(&$jsFiles) {
-        $jsFiles[] = 'plugins/WAIPortal/javascripts/wai-bootstrap-italia.min.js';
+        $jsFiles[] = 'plugins/WAIPortal/javascripts/wai-matomo-theme.min.js';
     }
 
     public function handleBodyClass(&$outstring, $page) {
