@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Valair/WAIPortal.git"
+    "url": "git+https://github.com/AgID/wai-matomo-theme.git"
   },
   "bugs": {
-    "url": "https://github.com/Valair/WAIPortal/issues"
+    "url": "https://github.com/AgID/wai-matomo-theme.git/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

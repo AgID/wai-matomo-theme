@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-namespace Piwik\Plugins\WAIPortal;
+namespace Piwik\Plugins\WAIMatomoTheme;
 
 use Piwik\Piwik;
 use Piwik\Settings\FieldConfig;
@@ -14,7 +14,7 @@ use Piwik\Settings\Plugin\SystemSettings as BaseSystemSettings;
 use Piwik\Validators\NotEmpty;
 
 /**
- * System Settings for WAIPortal Theme.
+ * System Settings for WAIMatomoTheme.
  */
 class SystemSettings extends BaseSystemSettings
 {
@@ -43,9 +43,9 @@ class SystemSettings extends BaseSystemSettings
         $default = 'https://localhost';
 
         return $this->makeSetting('waiUrl', $default, FieldConfig::TYPE_STRING, function (FieldConfig $field) {
-            $field->title = Piwik::translate('WAIPortal_WAIPortalBaseURLTitle');
+            $field->title = Piwik::translate('WAIMatomoTheme_WAIPortalBaseURLTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_URL;
-            $field->description = Piwik::translate('WAIPortal_WAIPortalBaseURLDescription');
+            $field->description = Piwik::translate('WAIMatomoTheme_WAIPortalBaseURLDescription');
             $field->validators[] = new NotEmpty();
         });
     }

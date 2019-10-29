@@ -9,7 +9,7 @@
                     {% if not userLogin is same as('anonymous') and not userIsSuperUser %}
                     <a class="it-btn btn-border-white btn-icon" role="button" href="{{ waiUrl }}">
                         <svg class="icon icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-arrow-left"></use></svg>
-                        <span>{{ 'WAIPortal_BackToWai'|translate }}</span>
+                        <span>{{ 'WAIMatomoTheme_BackToWai'|translate }}</span>
                     </a>
                     {% elseif userIsSuperUser %}
                     <a class="it-btn btn-border-white btn-icon btn-md-icon" role="button" href="{{ linkTo({'module': 'Login', 'action': 'logout'})}}">

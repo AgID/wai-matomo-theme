@@ -43,7 +43,7 @@ const Paths = {
         'src/js/' + pkg.name + '.js',
     ],
     RELEASE_DIST: 'dist',
-    DIST: 'dist/WAIPortal',
+    DIST: 'dist/WAIMatomoTheme',
 }
 
 const waiBootstrapItaliaBanner = [
@@ -130,7 +130,7 @@ gulp.task('import-bi-svg', () => {
 gulp.task('zip', () => {
     return gulp
         .src(Paths.RELEASE_DIST + '/**/*')
-        .pipe(tar('WAIPortal_' + pkg.version + '.tar', { mode: null }))
+        .pipe(tar('wai-matomo-theme_' + pkg.version + '.tar', { mode: null }))
         .pipe(gzip())
         .pipe(gulp.dest(Paths.RELEASE_DIST))
 })

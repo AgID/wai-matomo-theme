@@ -7,7 +7,7 @@
  *
  */
 
-namespace Piwik\Plugins\WAIPortal;
+namespace Piwik\Plugins\WAIMatomoTheme;
 
 use Piwik\Filesystem;
 use Piwik\Option;
@@ -18,14 +18,14 @@ use Piwik\View;
 /**
  * WAI Portal theme plugin.
  */
-class WAIPortal extends Plugin
+class WAIMatomoTheme extends Plugin
 {
     /**
      * The base plugin path.
      *
      * @var string the path
      */
-    const PLUGIN_PATH = 'plugins/WAIPortal';
+    const PLUGIN_PATH = 'plugins/WAIMatomoTheme';
 
     /**
      * File backup suffix
@@ -49,7 +49,7 @@ class WAIPortal extends Plugin
     private $footerLinks;
 
     /**
-     * WAIPortal constructor.
+     * WAIMatomoTheme constructor.
      * @param string|bool $pluginName A plugin name to force. If not supplied, it is set
      *                                to the last part of the class name.
      * @throws \Exception If plugin metadata is defined in both the getInformation() method
@@ -86,11 +86,11 @@ class WAIPortal extends Plugin
     }
 
     public function addCssFiles(&$stylesheets) {
-        $stylesheets[] = 'plugins/WAIPortal/stylesheets/wai-matomo-theme.min.css';
+        $stylesheets[] = 'plugins/WAIMatomoTheme/stylesheets/wai-matomo-theme.min.css';
     }
 
     public function addJavaScriptFiles(&$jsFiles) {
-        $jsFiles[] = 'plugins/WAIPortal/javascripts/wai-matomo-theme.min.js';
+        $jsFiles[] = 'plugins/WAIMatomoTheme/javascripts/wai-matomo-theme.min.js';
     }
 
     public function handleBodyClass(&$outstring, $page) {
@@ -110,7 +110,7 @@ class WAIPortal extends Plugin
         if ('login' === $page) {
             $outstring .= $this->handleTemplateHeader($outstring);
         } else {
-            $outstring .= (new View('@WAIPortal/itSiteName'))->render();
+            $outstring .= (new View('@WAIMatomoTheme/itSiteName'))->render();
         }
     }
 
@@ -121,7 +121,7 @@ class WAIPortal extends Plugin
      */
     public function handleTemplateHeader(&$outstring)
     {
-        $view = new View('@WAIPortal/itHeader');
+        $view = new View('@WAIMatomoTheme/itHeader');
         $view->pluginPath = self::PLUGIN_PATH;
         $settings = new SystemSettings();
         $view->waiUrl = $settings->waiUrl->getValue();
@@ -135,7 +135,7 @@ class WAIPortal extends Plugin
      */
     public function handleTemplatePageFooter(&$outstring)
     {
-        $view = new View('@WAIPortal/itFooter');
+        $view = new View('@WAIMatomoTheme/itFooter');
         $view->socials = $this->socials['links'];
         $view->links = $this->footerLinks['links'];
         $settings = new SystemSettings();
@@ -166,14 +166,14 @@ class WAIPortal extends Plugin
      * Manage plugin activation.
      */
     public function activate() {
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/images/wai-logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/wai-logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/images/wai-logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/svg/wai-logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
 
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/maintenance.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl');
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutHeader.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutFooter.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/maintenance.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/simpleLayoutHeader.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/simpleLayoutFooter.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
     }
 
     /**
