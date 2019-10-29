@@ -12,6 +12,7 @@ const gulp = require('gulp'),
     touch = require('gulp-touch-cmd'),
     tar = require('gulp-tar'),
     gzip = require('gulp-gzip'),
+    config = require('./config.json')
     pkg = require('./package.json')
 
 sass.compiler = require('sass')
@@ -25,13 +26,16 @@ const Paths = {
         'lang/**/*',
         'lang/**/*',
         'svg/**/*',
-        'templates/**/*',
+        'templates/**/*.twig',
         'stylesheets/**/*',
         '*.php',
         'plugin.json',
         'README.md',
         'LICENSE',
         'CHANGELOG.md',
+    ],
+    SOURCE_STATIC_TPL: [
+        'templates/**/*.tpl',
     ],
     SOURCE_BI_SVG: [
         'node_modules/bootstrap-italia/dist/svg/sprite.svg',
@@ -113,13 +117,30 @@ gulp.task('js-min', () => {
         .pipe(touch())
 })
 
-gulp.task('copy-files', () => {
+gulp.task('copy', () => {
     return gulp
         .src(Paths.SOURCE_COPY, {
-            base: '.'
+            base: '.',
         })
         .pipe(gulp.dest(Paths.DIST))
 })
+
+gulp.task('apply-tpl-config', () => {
+    return gulp
+        .src(Paths.SOURCE_STATIC_TPL, {
+            base: '.',
+        })
+        .pipe(replace(/%waiUrl%/g, config['wai-url']))
+        .pipe(gulp.dest(Paths.DIST))
+})
+
+gulp.task(
+    'copy-files',
+    gulp.series(
+        'copy',
+        'apply-tpl-config'
+    )
+)
 
 gulp.task('import-bi-svg', () => {
     return gulp
