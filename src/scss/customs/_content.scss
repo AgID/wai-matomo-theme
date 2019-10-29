@@ -1,0 +1,69 @@
+.page {
+  @include make-wai-container();
+
+  .pageWrap {
+    @include media-breakpoint-up(md) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .home {
+      .reportsByDimensionView {
+        display: flex;
+        flex-direction: column;
+
+        @include media-breakpoint-up(md) {
+          flex-direction: row;
+        }
+
+        .entityList {
+          flex: 0 1 auto;
+          margin-left: 0;
+          min-height: auto;
+
+          .dimensionCategory {
+            margin-bottom: 16px;
+          }
+        }
+
+        .reportContainer {
+          flex: 1 1 auto;
+          margin-left: 0;
+          min-width: auto;
+          position: static;
+
+          .pk-emptyDataTable {
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    #content.admin {
+      width: 100% !important;
+    }
+
+    #multisites.row {
+
+      .col.offset-l1 {
+        margin-left: 0;
+
+        @include media-breakpoint-up(lg) {
+          margin-left: 0;
+        }
+      }
+
+      .col.l10 {
+        width: 100%;
+
+        @include media-breakpoint-up(lg) {
+          width: 100%;
+        }
+      }
+
+      .widgetContent {
+        overflow-x: auto;
+      }
+    }
+  }
+}

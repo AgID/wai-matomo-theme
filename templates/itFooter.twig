@@ -3,22 +3,22 @@
     <div class="it-footer-main">
         <div class="it-container">
             <section>
-                <div class="it-row clearfix align-items-center">
-                    <div class="it-col-12 it-col-md-6">
+                <div class="it-row clearfix align-items-center justify-content-center">
+                    <div class="col-12 col-md-6">
                         <div class="it-brand-wrapper">
                             <a class="d-inline-flex" href="/">
-                                <img alt="footer logo" class="it-icon" src="{{ pluginPath }}/svg/footer_logo.svg">
+                                <img alt="footer logo" class="icon" src="{{ pluginPath }}/svg/footer_logo.svg">
                             </a>
                         </div>
                     </div>
                     <div class="pb-5 py-md-0 ml-md-auto">
                         <div class="d-flex align-items-center">
                             <span class="mr-2">{{ 'WAIPortal_SeguiciSu'|translate }}</span>
-                            <ul class="list-inline text-left m-0">
+                            <ul class="list-inline text-left m-0 d-flex">
                                 {% for social in socials %}
                                 <li class="list-inline-item ml-1">
                                     <a class="text-white" href="{{ social['url'] }}" aria-label="{{ social['name'] }}">
-                                        <svg class="it-icon it-icon-sm it-icon-white align-top">
+                                        <svg class="icon icon-sm icon-white align-top">
                                             <use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-{{ social['name'] }}"></use>
                                         </svg>
                                     </a>
