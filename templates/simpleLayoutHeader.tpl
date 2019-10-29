@@ -11,9 +11,7 @@
         <div class="box error-background">
             <div class="header error-header">
                 <div class="it-container">
-                    <svg class="error-icon icon-white">
-                        <use xlink:href="plugins/WAIMatomoTheme/svg/sprite.svg#it-pa"></use>
-                    </svg>
+                    <img class="error-icon icon-white" src="plugins/WAIMatomoTheme/svg/wai-logo.svg" alt="wai header logo">
                     <span class="name color-white error-header-text">Web Analytics Italia</span>
                 </div>
             </div>
