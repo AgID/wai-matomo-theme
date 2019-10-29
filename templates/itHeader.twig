@@ -7,7 +7,7 @@
             <div class="it-container">
                 <div class="it-row align-items-center col-12">
                     {% if not userLogin is same as('anonymous') and not userIsSuperUser %}
-                    <a class="it-btn btn-border-white btn-icon" role="button" href="{{ waiUrl }}">
+                    <a class="it-btn btn-border-white btn-icon" role="button" href="{{ waiUrl }}/websites">
                         <svg class="icon icon-white"><use xlink:href="{{ pluginPath }}/svg/sprite.svg#it-arrow-left"></use></svg>
                         <span>{{ 'WAIMatomoTheme_BackToWai'|translate }}</span>
                     </a>
