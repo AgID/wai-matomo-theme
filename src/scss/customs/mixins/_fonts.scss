@@ -1,0 +1,31 @@
+@mixin make-menu-font-size($size: $menu-font-size) {
+  font-size: $size !important;
+}
+
+@mixin make-menu-line-height($size: $menu-line-height) {
+  line-height: $size !important;
+}
+
+@mixin make-menu-font($font-size: $menu-font-size, $line-height: $menu-line-height) {
+  @include make-menu-font-size($font-size);
+  @include make-menu-line-height($line-height);
+}
+
+@mixin make-second-navbar-font-size($size: $second-navbar-font-size) {
+  font-size: $size !important;
+}
+
+@mixin make-second-navbar-line-height($size: $second-navbar-line-height) {
+  line-height: $size !important;
+}
+
+@mixin make-second-navbar-font($font-size: $second-navbar-font-size, $line-height: $second-navbar-line-height) {
+  @include make-menu-font-size($font-size);
+  @include make-menu-line-height($line-height);
+}
+
+@mixin make-ellipsis-font() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

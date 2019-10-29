@@ -1,0 +1,28 @@
+@import 'node_modules/bootstrap-italia/src/scss/custom/footer';
+
+footer.it-footer {
+  @include make-grid-columns();
+
+  .clearfix {
+    @include clearfix();
+
+    &::after {
+      height: unset;
+      visibility: unset;
+    }
+  }
+
+  @import 'node_modules/bootstrap-italia/src/scss/utilities/icons';
+
+  .it-footer-main {
+    img.icon {
+      height: 56px;
+      width: 100%;
+    }
+  }
+
+  .it-footer-small-prints {
+    @import 'node_modules/bootstrap/scss/nav';
+    @import 'node_modules/bootstrap-italia/src/scss/custom/font';
+  }
+}

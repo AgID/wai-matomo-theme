@@ -1,0 +1,30 @@
+.UserCountryMap {
+  .UserCountryMap-info-btn {
+    top: 5px;
+    right: 5px;
+    bottom: unset;
+    left: unset;
+  }
+
+  .dataTableFooterIcons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+
+    .dataTableFooterWrap {
+      flex: 1 1 100%;
+      float: unset;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+    }
+
+    select {
+      flex: 0 1 auto;
+      float: unset !important;
+      margin: 0 !important;
+    }
+  }
+}

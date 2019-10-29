@@ -2,7 +2,7 @@
 {% if currentModule is same as('CoreHome') %}
 <script type="text/javascript">
     $(() => {
-        $(".activateTopMenu").filter(':last').before('<span id="siteName" class="">' + piwik.siteName + '</span>');
+        window.showSiteName(piwik.siteName);
     });
 </script>
 {% endif %}

@@ -1,0 +1,68 @@
+
+nav {
+  display: flex;
+  justify-content: center;
+
+  a {
+    color: $navbar-item-color;
+  }
+
+  .nav-wrapper {
+    @include make-wai-container();
+    align-items: center;
+    display: flex;
+
+    #site-name {
+      color: $navbar-item-color;
+      flex: 1 1 auto;
+      font-size: 28px;
+      font-weight: bold;
+      line-height: 48px;
+      overflow: hidden;
+      text-align: center;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap;
+
+      @include media-breakpoint-up(lg) {
+        text-align: right;
+      }
+    }
+
+    .right {
+      float: unset !important;
+    }
+
+    @include media-breakpoint-up(lg) {
+      ul {
+        li {
+          a {
+            @include make-menu-font(18px, 27px);
+            color: $navbar-item-color;
+
+            &:hover {
+              background-color: transparent;
+            }
+          }
+        }
+
+        .active {
+          background-color: transparent;
+          font-weight: bold;
+          position: relative;
+          text-decoration: none;
+
+          a:after {
+            background: $navbar-active-item-underline-color;
+            bottom: 0;
+            content: '';
+            height: 6px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

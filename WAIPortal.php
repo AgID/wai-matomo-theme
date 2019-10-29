@@ -28,6 +28,13 @@ class WAIPortal extends Plugin
     const PLUGIN_PATH = 'plugins/WAIPortal';
 
     /**
+     * File backup suffix
+     *
+     * @var string the suffix
+     */
+    const BACKUP_FILE_SUFFIX = '.bkp';
+
+    /**
      * Socials list
      *
      * @var mixed the list
@@ -62,11 +69,32 @@ class WAIPortal extends Plugin
      */
     public function registerEvents() {
         return array(
+            'AssetManager.getStylesheetFiles' => array(
+                'function' => 'addCssFiles',
+                'after' => true,
+            ),
+            'AssetManager.getJavaScriptFiles' => array(
+                'function' => 'addJavaScriptFiles',
+                'after' => true,
+            ),
+            'Template.bodyClass' => 'handleBodyClass',
             'Template.beforeTopBar' => 'handleAddTopBar',
             'Template.header' => 'handleTemplateHeader',
             'Template.pageFooter' => 'handleTemplatePageFooter',
             'Template.loginNav' => 'handleLoginNav',
         );
+    }
+
+    public function addCssFiles(&$stylesheets) {
+        $stylesheets[] = 'plugins/WAIPortal/stylesheets/wai-matomo-theme.min.css';
+    }
+
+    public function addJavaScriptFiles(&$jsFiles) {
+        $jsFiles[] = 'plugins/WAIPortal/javascripts/wai-matomo-theme.min.js';
+    }
+
+    public function handleBodyClass(&$outstring, $page) {
+        return $outstring .= ' wai-theme';
     }
 
     /**
@@ -146,10 +174,14 @@ class WAIPortal extends Plugin
      * Manage plugin activation.
      */
     public function activate() {
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/images/logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
-        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/images/wai-logo.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserLogo());
+        @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/svg/wai-logo.svg', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserSvgLogo());
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
+
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/maintenance.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutHeader.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
+        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIPortal/templates/simpleLayoutFooter.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
     }
 
     /**
@@ -160,5 +192,29 @@ class WAIPortal extends Plugin
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserSvgLogo());
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '0', true);
+
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl' . self::BACKUP_FILE_SUFFIX);
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl' . self::BACKUP_FILE_SUFFIX);
+        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX);
+    }
+
+    /**
+     * Replace a file backing up the existing destination.
+     *
+     * @param string $sourceFile overriding file path
+     * @param string $destinationFile destination file path
+     */
+    private function backupAndReplaceFile($sourceFile, $destinationFile) {
+        @copy($destinationFile, $destinationFile . self::BACKUP_FILE_SUFFIX);
+        @copy($sourceFile, $destinationFile);
+    }
+
+    /**
+     * Restore a backed up file.
+     *
+     * @param string $sourceFile file path to restore
+     */
+    private function restoreOriginalFiles($sourceFile) {
+        @copy($sourceFile, rtrim($sourceFile, self::BACKUP_FILE_SUFFIX));
     }
 }
