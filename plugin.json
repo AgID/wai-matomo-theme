@@ -1,6 +1,6 @@
 {
     "name": "WAIPortal",
-    "description": "Matomo Platform showcase: example of how to create a simple Theme.",
+    "description": "Matomo Theme based on Bootstrap Italia.",
     "version": "0.2.0",
     "theme": true,
     "require": {
@@ -9,7 +9,11 @@
     "stylesheet": "stylesheets/theme.less",
     "homepage": "",
     "license": "GPL v3+",
-    "keywords": [],
+    "keywords": [
+        "bootstrap-italia",
+        "wai",
+        "web analytics italia"
+    ],
     "support": {
         "email": "",
         "issues": "",
