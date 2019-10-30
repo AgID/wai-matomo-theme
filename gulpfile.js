@@ -43,6 +43,7 @@ const Paths = {
     SOURCE_SCSS: 'src/scss/' + pkg.name + '.scss',
     SOURCE_JS: [
         'src/js/plugins/site-name.js',
+        'src/js/plugins/pa-name.js',
         'src/js/plugins/search-input.js',
         'src/js/' + pkg.name + '.js',
     ],
@@ -142,6 +143,13 @@ gulp.task(
     )
 )
 
+gulp.task('import-fonts', () => {
+    return gulp
+        .src(['node_modules/bootstrap-italia/src/fonts/**'])
+        .pipe(gulp.dest(Paths.DIST + '/fonts'))
+        .pipe(touch())
+})
+
 gulp.task('import-bi-svg', () => {
     return gulp
         .src(Paths.SOURCE_BI_SVG)
@@ -160,6 +168,7 @@ gulp.task(
     'import-assets',
     gulp.series(
         'import-bi-svg',
+        'import-fonts',
     )
 )
 
