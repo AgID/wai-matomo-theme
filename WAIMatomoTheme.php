@@ -171,9 +171,11 @@ class WAIMatomoTheme extends Plugin
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
 
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/maintenance.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl');
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/simpleLayoutHeader.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl');
-        $this->backupAndReplaceFile(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/templates/simpleLayoutFooter.tpl', PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl');
+        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php');
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/maintenance.tpl', 'plugins/Morpheus/templates/maintenance.tpl', $manifest);
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutHeader.tpl', 'plugins/Morpheus/templates/simpleLayoutHeader.tpl', $manifest);
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutFooter.tpl', 'plugins/Morpheus/templates/simpleLayoutFooter.tpl', $manifest);
+        @file_put_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php', $manifest);
     }
 
     /**
@@ -185,28 +187,51 @@ class WAIMatomoTheme extends Plugin
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '0', true);
 
-        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/maintenance.tpl' . self::BACKUP_FILE_SUFFIX);
-        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutHeader.tpl' . self::BACKUP_FILE_SUFFIX);
-        $this->restoreOriginalFiles(PIWIK_DOCUMENT_ROOT . '/plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX);
+        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php');
+        $this->restoreOriginalFiles('plugins/Morpheus/templates/maintenance.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
+        $this->restoreOriginalFiles('plugins/Morpheus/templates/simpleLayoutHeader.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
+        $this->restoreOriginalFiles('plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
+        @file_put_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php', $manifest);
     }
 
     /**
      * Replace a file backing up the existing destination.
      *
-     * @param string $sourceFile overriding file path
-     * @param string $destinationFile destination file path
+     * @param string $sourceFile overriding relative file path
+     * @param string $destinationFile destination relative file path
+     * @param string $manifest loaded matomo manifest reference
      */
-    private function backupAndReplaceFile($sourceFile, $destinationFile) {
-        @copy($destinationFile, $destinationFile . self::BACKUP_FILE_SUFFIX);
-        @copy($sourceFile, $destinationFile);
+    private function backupAndReplaceFile($sourceFile, $destinationFile, &$manifest) {
+        @copy(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile, PIWIK_DOCUMENT_ROOT . '/' . $destinationFile . self::BACKUP_FILE_SUFFIX);
+
+        @copy(PIWIK_DOCUMENT_ROOT . '/' . $sourceFile, PIWIK_DOCUMENT_ROOT . '/' . $destinationFile);
+
+        $this->updateManifestCheck($destinationFile, $manifest);
     }
 
     /**
      * Restore a backed up file.
      *
-     * @param string $sourceFile file path to restore
+     * @param string $sourceFile relative file path to restore
+     * @param string $manifest loaded matomo manifest reference
      */
-    private function restoreOriginalFiles($sourceFile) {
-        @copy($sourceFile, rtrim($sourceFile, self::BACKUP_FILE_SUFFIX));
+    private function restoreOriginalFiles($sourceFile, &$manifest) {
+        $restoredFileName = rtrim($sourceFile, self::BACKUP_FILE_SUFFIX);
+        @copy($sourceFile, $restoredFileName);
+        @unlink(PIWIK_DOCUMENT_ROOT . '/' . $sourceFile);
+
+        $this->updateManifestCheck($restoredFileName, $manifest);
+    }
+
+    /**
+     * Update file size and MD5 hash into matomo manifest.
+     *
+     * @param string $destinationFile relative file path to update
+     * @param string $manifest loaded matomo manifest reference
+     */
+    private function updateManifestCheck($destinationFile, &$manifest) {
+        if (function_exists('md5_file')) {
+            $manifest = @preg_replace('/"' . str_replace('/', '\/', $destinationFile) . '" => array\("[0-9]+", "[a-z0-9]+"\)(,)?/', '"' . $destinationFile . '" => array("' . filesize(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '", "' . md5_file(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '")$1', $manifest);
+        }
     }
 }
