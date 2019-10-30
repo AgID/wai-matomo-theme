@@ -42,6 +42,8 @@ const Paths = {
     ],
     SOURCE_SCSS: 'src/scss/' + pkg.name + '.scss',
     SOURCE_JS: [
+        'src/js/plugins/font-path.js',
+        'node_modules/bootstrap-italia/src/js/plugins/fonts-loader.js',
         'src/js/plugins/site-name.js',
         'src/js/plugins/pa-name.js',
         'src/js/plugins/search-input.js',
