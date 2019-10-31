@@ -12,7 +12,7 @@ const gulp = require('gulp'),
     touch = require('gulp-touch-cmd'),
     tar = require('gulp-tar'),
     gzip = require('gulp-gzip'),
-    config = require('./config.json')
+    config = require('./config.json'),
     pkg = require('./package.json')
 
 sass.compiler = require('sass')
