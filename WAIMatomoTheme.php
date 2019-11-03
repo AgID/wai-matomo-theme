@@ -35,6 +35,24 @@ class WAIMatomoTheme extends Plugin
     const BACKUP_FILE_SUFFIX = '.bkp';
 
     /**
+     * Matomo manifest path
+     *
+     * @var string the path
+     */
+    const MANIFEST_PATH = 'config/manifest.inc.php';
+
+    /**
+     * Matomo TPL templates to override paths
+     *
+     * @var array the paths list
+     */
+    const TPL_TEMPLATES_PATHS = [
+        'maintenance' => 'plugins/Morpheus/templates/maintenance.tpl',
+        'error-header' => 'plugins/Morpheus/templates/simpleLayoutHeader.tpl',
+        'error-footer' => 'plugins/Morpheus/templates/simpleLayoutFooter.tpl'
+    ];
+
+    /**
      * Socials list
      *
      * @var mixed the list
@@ -82,6 +100,7 @@ class WAIMatomoTheme extends Plugin
             'Template.header' => 'handleTemplateHeader',
             'Template.pageFooter' => 'handleTemplatePageFooter',
             'Template.loginNav' => 'handleLoginNav',
+            'SystemSettings.updated' => 'handleSystemSettingsUpdate'
         );
     }
 
@@ -163,6 +182,18 @@ class WAIMatomoTheme extends Plugin
     }
 
     /**
+     * Handle system settings update event.
+     *
+     * @param SystemSetting $settings the settings reference
+     */
+    public function handleSystemSettingsUpdate($settings) {
+        if ($settings->getPluginName() === $this->pluginName) {
+            $value = $settings->waiUrl->getValue();
+            $this->updateWaiUrlReferences($value);
+        }
+    }
+
+    /**
      * Manage plugin activation.
      */
     public function activate() {
@@ -171,11 +202,18 @@ class WAIMatomoTheme extends Plugin
         @copy(PIWIK_DOCUMENT_ROOT . '/plugins/WAIMatomoTheme/icons/favicon-32x32.png', PIWIK_DOCUMENT_ROOT . '/' . CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '1', true);
 
-        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php');
-        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/maintenance.tpl', 'plugins/Morpheus/templates/maintenance.tpl', $manifest);
-        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutHeader.tpl', 'plugins/Morpheus/templates/simpleLayoutHeader.tpl', $manifest);
-        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutFooter.tpl', 'plugins/Morpheus/templates/simpleLayoutFooter.tpl', $manifest);
-        @file_put_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php', $manifest);
+        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/maintenance.tpl', self::TPL_TEMPLATES_PATHS['maintenance'], $manifest);
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutHeader.tpl', self::TPL_TEMPLATES_PATHS['error-header'], $manifest);
+        $this->backupAndReplaceFile('plugins/WAIMatomoTheme/templates/simpleLayoutFooter.tpl', self::TPL_TEMPLATES_PATHS['error-footer'], $manifest);
+        $result = @file_put_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, $manifest, LOCK_EX);
+        if ($result) {
+            @rename(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
+        }
+
+        $settings = new SystemSettings();
+        $waiUrl = $settings->waiUrl->getValue();
+        $this->updateWaiUrlReferences($waiUrl);
     }
 
     /**
@@ -187,11 +225,14 @@ class WAIMatomoTheme extends Plugin
         Filesystem::remove(PIWIK_DOCUMENT_ROOT . '/' .CustomLogo::getPathUserFavicon());
         Option::set('branding_use_custom_logo', '0', true);
 
-        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php');
-        $this->restoreOriginalFiles('plugins/Morpheus/templates/maintenance.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
-        $this->restoreOriginalFiles('plugins/Morpheus/templates/simpleLayoutHeader.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
-        $this->restoreOriginalFiles('plugins/Morpheus/templates/simpleLayoutFooter.tpl' . self::BACKUP_FILE_SUFFIX, $manifest);
-        @file_put_contents(PIWIK_DOCUMENT_ROOT . '/config/manifest.inc.php', $manifest);
+        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
+        $this->restoreOriginalFiles(self::TPL_TEMPLATES_PATHS['maintenance'] . self::BACKUP_FILE_SUFFIX, $manifest);
+        $this->restoreOriginalFiles(self::TPL_TEMPLATES_PATHS['error-header'] . self::BACKUP_FILE_SUFFIX, $manifest);
+        $this->restoreOriginalFiles(self::TPL_TEMPLATES_PATHS['error-footer'] . self::BACKUP_FILE_SUFFIX, $manifest);
+        $result = @file_put_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, $manifest, LOCK_EX);
+        if ($result) {
+            @rename(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
+        }
     }
 
     /**
@@ -231,7 +272,32 @@ class WAIMatomoTheme extends Plugin
      */
     private function updateManifestCheck($destinationFile, &$manifest) {
         if (function_exists('md5_file')) {
-            $manifest = @preg_replace('/"' . str_replace('/', '\/', $destinationFile) . '" => array\("[0-9]+", "[a-z0-9]+"\)(,)?/', '"' . $destinationFile . '" => array("' . filesize(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '", "' . md5_file(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '")$1', $manifest);
+            $manifest = preg_replace(
+                '/"' . str_replace('/', '\/', $destinationFile) . '" => array\("[0-9]+", "[a-z0-9]+"\)(,)?/',
+                '"' . $destinationFile . '" => array("' . filesize(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '", "' . md5_file(PIWIK_DOCUMENT_ROOT . '/' . $destinationFile) . '")$1',
+                $manifest
+            );
+        }
+    }
+
+    /**
+     * Update WAI URL into static templates.
+     *
+     * @param string $newWaiUrlValue the new URL
+     */
+    private function updateWaiUrlReferences($newWaiUrlValue) {
+        $template = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/' . self::TPL_TEMPLATES_PATHS['error-header']);
+        $template = preg_replace('/^(.*)<a class="btn btn-outline-secondary" role="button" href="(.*)">Home page<\/a>$/m', '$1<a class="btn btn-outline-secondary" role="button" href="' . $newWaiUrlValue . '">Home page</a>', $template);
+        $result = @file_put_contents(PIWIK_DOCUMENT_ROOT . '/' . self::TPL_TEMPLATES_PATHS['error-header'] . self::BACKUP_FILE_SUFFIX, $template, LOCK_EX);
+        if ($result) {
+            @rename(PIWIK_DOCUMENT_ROOT . '/' . self::TPL_TEMPLATES_PATHS['error-header'] . self::BACKUP_FILE_SUFFIX, PIWIK_DOCUMENT_ROOT . '/' . self::TPL_TEMPLATES_PATHS['error-header']);
+        }
+
+        $manifest = @file_get_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
+        $this->updateManifestCheck(self::TPL_TEMPLATES_PATHS['error-header'], $manifest);
+        $result = @file_put_contents(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, $manifest, LOCK_EX);
+        if ($result) {
+            @rename(PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH . self::BACKUP_FILE_SUFFIX, PIWIK_DOCUMENT_ROOT . '/' . self::MANIFEST_PATH);
         }
     }
 }
