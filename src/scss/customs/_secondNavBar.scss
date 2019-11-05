@@ -15,6 +15,10 @@
         padding-bottom: 0;
         padding-top: 0;
 
+        li.menuTab > a {
+          color: $second-navbar-main-item-color;
+        }
+
         li, a {
           color: $second-navbar-item-color;
 

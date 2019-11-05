@@ -38,12 +38,15 @@ const Paths = {
     ],
     SOURCE_SCSS: 'src/scss/' + pkg.name + '.scss',
     SOURCE_JS: [
+        'src/js/plugins/font-path.js',
+        'node_modules/bootstrap-italia/src/js/plugins/fonts-loader.js',
         'src/js/plugins/site-name.js',
+        'src/js/plugins/pa-name.js',
         'src/js/plugins/search-input.js',
         'src/js/' + pkg.name + '.js',
     ],
     RELEASE_DIST: 'dist',
-    DIST: 'dist/WAIPortal',
+    DIST: 'dist/WAIMatomoTheme',
 }
 
 const waiBootstrapItaliaBanner = [
@@ -113,12 +116,19 @@ gulp.task('js-min', () => {
         .pipe(touch())
 })
 
-gulp.task('copy-files', () => {
+gulp.task('copy', () => {
     return gulp
         .src(Paths.SOURCE_COPY, {
-            base: '.'
+            base: '.',
         })
         .pipe(gulp.dest(Paths.DIST))
+})
+
+gulp.task('import-fonts', () => {
+    return gulp
+        .src(['node_modules/bootstrap-italia/src/fonts/**'])
+        .pipe(gulp.dest(Paths.DIST + '/fonts'))
+        .pipe(touch())
 })
 
 gulp.task('import-bi-svg', () => {
@@ -129,8 +139,11 @@ gulp.task('import-bi-svg', () => {
 
 gulp.task('zip', () => {
     return gulp
-        .src(Paths.RELEASE_DIST + '/**/*')
-        .pipe(tar('WAIPortal_' + pkg.version + '.tar', { mode: null }))
+        .src([
+            Paths.RELEASE_DIST + '/**/*',
+            '!' + Paths.RELEASE_DIST + '/**/*.tar.gz'
+        ])
+        .pipe(tar('wai-matomo-theme_' + pkg.version + '.tar', { mode: null }))
         .pipe(gzip())
         .pipe(gulp.dest(Paths.RELEASE_DIST))
 })
@@ -139,19 +152,18 @@ gulp.task(
     'import-assets',
     gulp.series(
         'import-bi-svg',
+        'import-fonts',
     )
 )
 
 gulp.task(
-    'build-library',
+    'build',
     gulp.series(
-        'copy-files',
+        'copy',
         'import-assets',
         'scss-min',
         'js-min',
     )
 )
-
-gulp.task('build', gulp.series('build-library'))
 
 gulp.task('release', gulp.series('build', 'zip'))
