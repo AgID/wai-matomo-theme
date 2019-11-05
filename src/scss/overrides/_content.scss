@@ -1,0 +1,11 @@
+@import 'node_modules/bootstrap-italia/src/scss/custom/type';
+
+#content {
+  p {
+    font-size: 16px;
+  }
+
+  &.admin {
+    font-size: 16px;
+  }
+}

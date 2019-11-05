@@ -1,6 +1,6 @@
 <?php
 
-namespace Piwik\Plugins\WAIPortal;
+namespace Piwik\Plugins\WAIMatomoTheme;
 
 use Piwik\Menu\MenuTop;
 use Piwik\Piwik;
