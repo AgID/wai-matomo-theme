@@ -143,7 +143,7 @@ gulp.task('zip', () => {
             Paths.RELEASE_DIST + '/**/*',
             '!' + Paths.RELEASE_DIST + '/**/*.tar.gz'
         ])
-        .pipe(tar('wai-matomo-theme_' + pkg.version + '.tar', { mode: null }))
+        .pipe(tar('wai-matomo-theme_' + pkg.version + '_auto_activate.tar', { mode: null }))
         .pipe(gzip())
         .pipe(gulp.dest(Paths.RELEASE_DIST))
 })
