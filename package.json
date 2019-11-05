@@ -5,7 +5,7 @@
   "keywords": [],
   "author": "",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/Valair/wai-bootstrap-italia",
+  "homepage": "https://github.com/AgID/wai-matomo-theme.git#readme",
   "scripts": {
     "build": "gulp build",
     "release": "gulp release"
