@@ -102,10 +102,14 @@
       }
     }
 
-    .it-pa {
-      color: $white;
-      font-weight: 600 !important;
-      line-height: 1.2;
+    .it-right-zone {
+      max-width: 30%;
+
+      .it-pa {
+        color: $white;
+        font-weight: 600 !important;
+        line-height: 1.2;
+      }
     }
   }
 }
