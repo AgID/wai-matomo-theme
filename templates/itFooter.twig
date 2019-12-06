@@ -7,15 +7,15 @@
                 <div class="it-row clearfix align-items-center justify-content-center">
                     <div class="col-12 col-md-6">
                         <div class="it-brand-wrapper">
-                            <a class="d-inline-flex" href="/">
-                                <img alt="footer logo" class="icon" src="{{ pluginPath }}/svg/footer_logo.svg">
+                            <a class="d-inline-flex" href="{{  owner['url'] }}">
+                                <img alt="{{ "WAIMatomoTheme_#{owner['name']}"|translate }} - logo" src="{{ pluginPath }}/svg/footer_logo.svg">
                             </a>
                         </div>
                     </div>
                     <div class="pb-5 py-md-0 ml-md-auto">
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex">
                             <span class="mr-2">{{ 'WAIMatomoTheme_SeguiciSu'|translate }}</span>
-                            <ul class="list-inline text-left m-0 d-flex">
+                            <ul class="list-inline text-left m-0">
                                 {% for social in socials %}
                                 <li class="list-inline-item ml-1">
                                     <a class="text-white" href="{{ social['url'] }}" aria-label="{{ social['name'] }}">
@@ -29,6 +29,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="it-footer-primary-menu it-row justify-content-between mb-4">
+                    {% for link in links['primary'] %}
+                    <div class="pb-2">
+                        <h4>
+                            <a href="{{ link['url']|format(waiUrl) }}" class="external-link">{{ "WAIMatomoTheme_#{link['name']}"|translate }}</a>
+                        </h4>
+                    </div>
+                    {% endfor %}
+                </div>
+                {{ include('_footerBand.twig', { 'pluginPath': pluginPath }) }}
             </section>
         </div>
     </div>
@@ -36,7 +46,7 @@
         <div class="it-container d-flex align-items-end align-items-md-center">
             <h3 class="sr-only">{{ 'WAIMatomoTheme_NavigazioneSecondaria'|translate }}</h3>
             <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row pl-0">
-                {% for link in links %}
+                {% for link in links['secondary'] %}
                 <li class="list-inline-item px-0">
                     <a class="nav-link" href="{{ link['url']|format(waiUrl) }}">
                         <span class="font-weight-semibold analogue-2-color">{{ "WAIMatomoTheme_#{link['name']}"|translate }}</span>

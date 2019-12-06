@@ -5,10 +5,16 @@
         "BackToWai": "Torna ai miei siti",
         "SeguiciSu": "seguici su",
         "NavigazioneSecondaria": "navigazione secondaria",
+        "AgID": "Agenzia per l'Italia Digitale",
         "PrivacyPolicy": "Privacy policy",
         "NoteLegali": "Note legali",
         "OpenData": "Open data",
-        "Faq": "FAQ",
-        "Contatti": "Contattaci"
+        "Faq": "Domande frequenti",
+        "Contatti": "Contattaci",
+        "DichiarazioneAccessilita": "Dichiarazione di accessibilità",
+        "EU": "Unione Europea",
+        "AgenziaCoesione": "Agenzia per la coesione territoriale",
+        "DFP": "Dipartimento della Funzione Pubblica",
+        "PON": "PON Governance e capacità istituzionale 2014-2020"
     }
 }
