@@ -1,24 +1,36 @@
 {
-    "links": [
-        {
-            "name": "PrivacyPolicy",
-            "url": "%s/privacy"
-        },
-        {
-            "name": "NoteLegali",
-            "url": "%s/legal-notes"
-        },
-        {
-            "name": "OpenData",
-            "url": "%s/open-data"
-        },
-        {
-            "name": "Faq",
-            "url": "%s/faq"
-        },
-        {
-            "name": "Contatti",
-            "url": "%s/contacts"
-        }
-    ]
+    "owner": {
+        "name": "Agenzia per l'Italia Digitale",
+        "url": "https://www.agid.gov.it"
+    },
+    "links": {
+        "primary": [
+            {
+                "name": "Faq",
+                "url": "%s/privacy"
+            },
+            {
+                "name": "OpenData",
+                "url": "%s/open-data"
+            },
+            {
+                "name": "Contatti",
+                "url": "%s/contacts"
+            },
+            {
+                "name": "DichiarazioneAccessilita",
+                "url": "https://form.agid.gov.it/"
+            }
+        ],
+        "secondary": [
+            {
+                "name": "PrivacyPolicy",
+                "url": "%s/privacy"
+            },
+            {
+                "name": "NoteLegali",
+                "url": "%s/legal-notes"
+            }
+        ]
+    }
 }

@@ -401,7 +401,7 @@ body.error {
     overflow-x: hidden;
     width: 100%;
     height: 200px;
-    background-image: url("/plugins/WAIMatomoTheme/svg/footer.svg");
+    background-image: url("plugins/WAIMatomoTheme/svg/footer.svg");
     background-repeat: repeat-x;
     background-position: left bottom;
 }

@@ -156,6 +156,7 @@ class WAIMatomoTheme extends Plugin
     {
         $view = new View('@WAIMatomoTheme/itFooter');
         $view->socials = $this->socials['links'];
+        $view->owner = $this->footerLinks['owner'];
         $view->links = $this->footerLinks['links'];
         $settings = new SystemSettings();
         $view->waiUrl = $settings->waiUrl->getValue();
