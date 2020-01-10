@@ -1,7 +1,7 @@
 {
     "name": "WAIMatomoTheme",
     "description": "Matomo Theme based on Bootstrap Italia.",
-    "version": "0.3.1",
+    "version": "0.3.3",
     "theme": true,
     "require": {
         "piwik": ">=3.11.0-stable,<4.0.0-b1"

@@ -5,10 +5,16 @@
         "BackToWai": "Back to my sites",
         "SeguiciSu": "Follow us",
         "NavigazioneSecondaria": "alternative navigation",
+        "AgID": "Agenzia per l'Italia Digitale",
         "PrivacyPolicy": "Privacy policy",
         "NoteLegali": "Legal notes",
         "OpenData": "Open data",
-        "Faq": "FAQ",
-        "Contatti": "Contact us"
+        "Faq": "Frequently asked questions",
+        "Contatti": "Contact us",
+        "DichiarazioneAccessilita": "Accessibility statement",
+        "EU": "European Union",
+        "AgenziaCoesione": "Agency for territorial cohesion",
+        "DFP": "Department of Public Administration",
+        "PON": "PON Governance and institutional capacity 2014-2020"
     }
 }
