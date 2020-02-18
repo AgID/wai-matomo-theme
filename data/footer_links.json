@@ -6,20 +6,16 @@
     "links": {
         "primary": [
             {
+                "name": "ComePartecipare",
+                "url": "%s/how-to-join"
+            },
+            {
                 "name": "Faq",
                 "url": "%s/privacy"
             },
             {
-                "name": "OpenData",
-                "url": "%s/open-data"
-            },
-            {
-                "name": "Contatti",
-                "url": "%s/contacts"
-            },
-            {
-                "name": "DichiarazioneAccessilita",
-                "url": "https://form.agid.gov.it/"
+                "name": "GuidaUtente",
+                "url": "https://docs.italia.it/agid/wai/wai-user-guide-docs/it/stabile/"
             }
         ],
         "secondary": [
@@ -30,6 +26,10 @@
             {
                 "name": "NoteLegali",
                 "url": "%s/legal-notes"
+            },
+            {
+                "name": "Contatti",
+                "url": "%s/contacts"
             }
         ]
     }

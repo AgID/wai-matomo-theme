@@ -29,6 +29,7 @@
                         </div>
                     </div>
                 </div>
+                {% if links['primary'] is not empty %}
                 <div class="it-footer-primary-menu it-row justify-content-between mb-4">
                     {% for link in links['primary'] %}
                     <div class="pb-2">
@@ -38,6 +39,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}
                 {{ include('_footerBand.twig', { 'pluginPath': pluginPath }) }}
             </section>
         </div>
