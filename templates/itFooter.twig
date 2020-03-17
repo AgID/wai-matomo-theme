@@ -14,7 +14,7 @@
                     </div>
                     <div class="pb-5 py-md-0 ml-md-auto">
                         <div class="d-flex">
-                            <span class="mr-2">{{ 'WAIMatomoTheme_SeguiciSu'|translate }}</span>
+                            <span class="mr-2">{{ 'WAIMatomoTheme_FollowUs'|translate }}</span>
                             <ul class="list-inline text-left m-0">
                                 {% for social in socials %}
                                 <li class="list-inline-item ml-1">
@@ -31,9 +31,9 @@
                 </div>
                 <div class="it-footer-primary-menu it-row justify-content-between mb-4">
                     {% for link in links['primary'] %}
-                    <div class="pb-2">
+                    <div class="p-2">
                         <h4>
-                            <a href="{{ link['url']|format(waiUrl) }}" class="external-link">{{ "WAIMatomoTheme_#{link['name']}"|translate }}</a>
+                            <a href="{{ link['url']|format(waiUrl) }}" class="{{ link['class']|default('') }}">{{ "WAIMatomoTheme_#{link['name']}"|translate }}</a>
                         </h4>
                     </div>
                     {% endfor %}
@@ -44,7 +44,7 @@
     </div>
     <div class="it-footer-small-prints clearfix">
         <div class="it-container d-flex align-items-end align-items-md-center">
-            <h3 class="sr-only">{{ 'WAIMatomoTheme_NavigazioneSecondaria'|translate }}</h3>
+            <h3 class="sr-only">{{ 'WAIMatomoTheme_SecondaryNavigation'|translate }}</h3>
             <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row pl-0">
                 {% for link in links['secondary'] %}
                 <li class="list-inline-item px-0">

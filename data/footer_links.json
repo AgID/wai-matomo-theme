@@ -1,35 +1,36 @@
 {
     "owner": {
-        "name": "Agenzia per l'Italia Digitale",
+        "name": "AGID",
         "url": "https://www.agid.gov.it"
     },
     "links": {
         "primary": [
             {
+                "name": "HowToJoin",
+                "url": "%s/how-to-join"
+            },
+            {
                 "name": "Faq",
-                "url": "%s/privacy"
+                "url": "%s/faq"
             },
             {
-                "name": "OpenData",
-                "url": "%s/open-data"
-            },
-            {
-                "name": "Contatti",
-                "url": "%s/contacts"
-            },
-            {
-                "name": "DichiarazioneAccessilita",
-                "url": "https://form.agid.gov.it/"
+                "name": "UserGuide",
+                "url": "https://docs.italia.it/agid/wai/wai-user-guide-docs/it/stabile/",
+                "class": "external-link"
             }
         ],
         "secondary": [
             {
-                "name": "PrivacyPolicy",
+                "name": "Privacy",
                 "url": "%s/privacy"
             },
             {
-                "name": "NoteLegali",
+                "name": "LegalNotes",
                 "url": "%s/legal-notes"
+            },
+            {
+                "name": "Contacts",
+                "url": "%s/contacts"
             }
         ]
     }
