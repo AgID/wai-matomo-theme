@@ -1,9 +1,22 @@
 {
   "name": "wai-matomo-theme",
-  "version": "0.3.3-alpha",
+  "version": "1.0.0-beta",
   "description": "Matomo Theme based on Bootstrap Italia",
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "AGID - Agenzia per l'Italia Digitale",
+    "url": "https://www.agid.gov.it"
+  },
+  "contributors": [
+    {
+      "name": "Andrea Capelli",
+      "url": "https://github.com/valair"
+    },
+    {
+      "name": "Davide Porrovecchio",
+      "url": "https://github.com/pdavide"
+    }
+  ],
   "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/AgID/wai-matomo-theme.git#readme",
   "scripts": {
