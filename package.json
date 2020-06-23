@@ -52,6 +52,6 @@
     "gulp-touch-cmd": "^0.0.1",
     "gulp-uglify": "^3.0.2",
     "prettier": "^1.18.2",
-    "sass": "^1.23.1"
+    "sass": "^1.26.9"
   }
 }
