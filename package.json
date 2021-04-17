@@ -34,7 +34,6 @@
     "@babel/core": "^7.13.15",
     "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
     "@babel/preset-env": "^7.13.15",
-    "bootstrap": "^4.3.1",
     "bootstrap-italia": "^1.4.3",
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.9",
@@ -51,7 +50,7 @@
     "gulp-tar": "^3.1.0",
     "gulp-touch-cmd": "^0.0.1",
     "gulp-uglify": "^3.0.2",
-    "prettier": "^2.2.1",
-    "sass": "^1.23.1"
-  }
+    "sass": "^1.32.10"
+  },
+  "dependencies": {}
 }
