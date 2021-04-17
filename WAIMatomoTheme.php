@@ -195,6 +195,16 @@ class WAIMatomoTheme extends Plugin
     }
 
     /**
+     * Manage plugin loaded event.
+     */
+    public function postLoad()
+    {
+        if (!Option::get('branding_use_custom_logo')) {
+            $this->activate();
+        }
+    }
+
+    /**
      * Manage plugin activation.
      */
     public function activate() {
