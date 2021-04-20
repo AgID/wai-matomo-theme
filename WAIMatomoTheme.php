@@ -100,7 +100,8 @@ class WAIMatomoTheme extends Plugin
             'Template.header' => 'handleTemplateHeader',
             'Template.pageFooter' => 'handleTemplatePageFooter',
             'Template.loginNav' => 'handleLoginNav',
-            'SystemSettings.updated' => 'handleSystemSettingsUpdate'
+            'SystemSettings.updated' => 'handleSystemSettingsUpdate',
+            'Widget.filterWidgets' => 'filterWidgets',
         );
     }
 
@@ -192,6 +193,16 @@ class WAIMatomoTheme extends Plugin
             $value = $settings->waiUrl->getValue();
             $this->updateWaiUrlReferences($value);
         }
+    }
+
+    /**
+     * Remove some widgets.
+     *
+     * @param WidgetsList $list the list of all widgets
+     */
+    public function filterWidgets($list) {
+        $list->remove('About Matomo', 'CoreHome_SupportPiwik');
+        $list->remove('About Matomo', 'Installation_Welcome');
     }
 
     /**
