@@ -37,7 +37,7 @@ class Menu extends MatomoMenu
     {
         // Intercept menu configuration to remove unwanted items
         if (!Piwik::hasUserSuperUserAccess()) {
-            $menuAdmin->remove('UsersManager_MenuPersonal');
+            $menuAdmin->remove('UsersManager_MenuPersonal', 'General_Settings');
             $menuAdmin->remove('CorePluginsAdmin_MenuPlatform');
             $menuAdmin->remove('CoreAdminHome_MenuMeasurables', 'CoreAdminHome_TrackingCode');
         }
