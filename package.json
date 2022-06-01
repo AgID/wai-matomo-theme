@@ -34,7 +34,7 @@
     "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
-    "bootstrap-italia": "^1.4.3",
+    "bootstrap-italia": "^1.6.3",
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.9",
     "gulp-autoprefixer": "^8.0.0",
