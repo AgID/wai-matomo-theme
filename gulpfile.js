@@ -12,6 +12,8 @@ const gulp = require('gulp'),
     touch = require('gulp-touch-cmd'),
     tar = require('gulp-tar'),
     gzip = require('gulp-gzip'),
+    clean = require('gulp-clean'),
+    gulpif = require('gulp-if'),
     pkg = require('./package.json')
 
 sass.compiler = require('sass')
@@ -59,6 +61,11 @@ const waiBootstrapItaliaBanner = [
     '',
 ].join('\n')
 
+gulp.task('clean', () => {
+    return gulp.src(Paths.RELEASE_DIST, {read: false, allowEmpty: true})
+    .pipe(clean());
+});
+
 gulp.task('scss-min', () => {
     return gulp
         .src(Paths.SOURCE_SCSS)
@@ -77,7 +84,7 @@ gulp.task('scss-min', () => {
                 suffix: '.min',
             })
         )
-        .pipe(sourcemaps.write('.'))
+        .pipe(gulpif(process.env.NODE_ENV != "production", sourcemaps.write('.')))
         .pipe(gulp.dest(Paths.DIST + '/stylesheets'))
         .pipe(touch())
 })
@@ -111,7 +118,7 @@ gulp.task('js-min', () => {
                 suffix: '.min',
             })
         )
-        .pipe(sourcemaps.write('.'))
+        .pipe(gulpif(process.env.NODE_ENV != "production", sourcemaps.write('.')))
         .pipe(gulp.dest(Paths.DIST + '/javascripts'))
         .pipe(touch())
 })
@@ -166,4 +173,4 @@ gulp.task(
     )
 )
 
-gulp.task('release', gulp.series('build', 'zip'))
+gulp.task('release', gulp.series('clean', 'build', 'zip'))
