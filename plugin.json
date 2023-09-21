@@ -4,7 +4,7 @@
     "version": "0.3.3",
     "theme": true,
     "require": {
-        "piwik": ">=3.11.0-stable,<=4.15.0"
+        "piwik": ">=3.13.0-stable,<5.0.0-b1"
     },
     "stylesheet": "stylesheets/theme.less",
     "homepage": "",
