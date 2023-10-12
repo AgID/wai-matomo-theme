@@ -1,5 +1,6 @@
 // Top Controls bar
 #root {
+  position: relative !important;
   > .top_controls {
     @include make-wai-container();
     background-color: transparent;
