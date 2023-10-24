@@ -53,7 +53,7 @@ nav {
 
           a:after {
             background: $navbar-active-item-underline-color;
-            bottom: 0;
+            bottom: -1rem;
             content: '';
             height: 6px;
             left: 0;
