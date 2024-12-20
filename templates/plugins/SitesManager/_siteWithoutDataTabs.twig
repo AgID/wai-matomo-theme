@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tabs').tabs({
+            'onShow': function (element) {
+                var id = element.getAttribute('id');
+                if (!id) {
+                    return;
+                }
+                window.CoreHome.MatomoUrl.updateHash({ ...window.CoreHome.MatomoUrl.hashParsed.value, activeTab: id })
+            }
+        });
+        var selectedTab = window.CoreHome.MatomoUrl.hashParsed.value.activeTab;
+        if (selectedTab) {
+            M.Tabs.getInstance($('.tabs')).select(selectedTab);
+        }
+    });
+</script>
+
+{% set columnClass = activeTab ? 's2' : 's3' %}
+<div class="row no-data-tabs-main-div">
+    <div id="tracking-code" class="col s12">
+        {% if notificationMessage %}
+        <p></p>
+        <p></p>
+        <div class="system notification notification-info {{ isNotificationsMerged ? ' merged-notification' : ''}}">
+            {{ notificationMessage|raw }}
+        </div>
+        {% endif %}
+        <p>{{ 'CoreAdminHome_JSTracking_CodeNoteBeforeClosingHead'|translate("&lt;/head&gt;")|raw }}</p>
+
+        <div vue-entry="CoreAdminHome.JsTrackingCodeGeneratorSitesWithoutData"
+            server-side-do-not-track-enabled="{{ serverSideDoNotTrackEnabled|json_encode }}" js-tag="{{ jsTag|raw }}">
+        </div>
+    </div>
+</div>
