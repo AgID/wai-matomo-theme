@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import gulpSass from 'gulp-sass';
-import dartSass from 'sass'; // Importa Dart Sass
+import * as dartSass from 'sass'
 import concat from 'gulp-concat';
 import replace from 'gulp-replace';
 import autoprefixer from 'gulp-autoprefixer';
@@ -77,7 +77,9 @@ gulp.task('scss-min', () => {
     return gulp
         .src(Paths.SOURCE_SCSS)
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            loadPaths: ['.']
+        }).on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(
             cleanCSS({
