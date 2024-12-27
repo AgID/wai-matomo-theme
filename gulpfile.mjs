@@ -1,30 +1,35 @@
-const gulp = require('gulp'),
-    sass = require('gulp-sass')(require('sass')),
-    concat = require('gulp-concat'),
-    replace = require('gulp-replace'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    cleanCSS = require('gulp-clean-css'),
-    rename = require('gulp-rename'),
-    uglify = require('gulp-uglify'),
-    babel = require('gulp-babel'),
-    gap = require('gulp-append-prepend'),
-    touch = require('gulp-touch-cmd'),
-    tar = require('gulp-tar'),
-    gzip = require('gulp-gzip'),
-    clean = require('gulp-clean'),
-    gulpif = require('gulp-if'),
-    pkg = require('./package.json')
+import gulp from 'gulp';
+import gulpSass from 'gulp-sass';
+import dartSass from 'sass'; // Importa Dart Sass
+import concat from 'gulp-concat';
+import replace from 'gulp-replace';
+import autoprefixer from 'gulp-autoprefixer';
+import sourcemaps from 'gulp-sourcemaps';
+import cleanCSS from 'gulp-clean-css';
+import rename from 'gulp-rename';
+import uglify from 'gulp-uglify';
+import babel from 'gulp-babel';
+import gap from 'gulp-append-prepend';
+import touch from 'gulp-touch-cmd';
+import tar from 'gulp-tar';
+import gzip from 'gulp-gzip';
+import clean from 'gulp-clean';
+import gulpif from 'gulp-if';
+import { readFile } from 'fs/promises';
 
-sass.compiler = require('sass')
+// Configura il compilatore di gulp-sass
+const sass = gulpSass(dartSass);
 
+// Leggi il package.json
+const pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
+
+// Configura i percorsi
 const Paths = {
     SOURCE_COPY: [
         'config/**/*',
         'data/**/*',
         'icons/**/*',
         'images/**/*',
-        'lang/**/*',
         'lang/**/*',
         'svg/**/*',
         'templates/**/*',
@@ -49,8 +54,9 @@ const Paths = {
     ],
     RELEASE_DIST: 'dist',
     DIST: 'dist/WAIMatomoTheme',
-}
+};
 
+// Banner per i file generati
 const waiBootstrapItaliaBanner = [
     '/*!',
     ' * ' + pkg.description,
@@ -59,13 +65,14 @@ const waiBootstrapItaliaBanner = [
     ' * @license ' + pkg.license,
     ' */',
     '',
-].join('\n')
+].join('\n');
 
+// Task: Pulizia della directory di distribuzione
 gulp.task('clean', () => {
-    return gulp.src(Paths.RELEASE_DIST, {read: false, allowEmpty: true})
-    .pipe(clean());
+    return gulp.src(Paths.RELEASE_DIST, { read: false, allowEmpty: true }).pipe(clean());
 });
 
+// Task: Compilazione e minimizzazione SCSS
 gulp.task('scss-min', () => {
     return gulp
         .src(Paths.SOURCE_SCSS)
@@ -84,11 +91,12 @@ gulp.task('scss-min', () => {
                 suffix: '.min',
             })
         )
-        .pipe(gulpif(process.env.NODE_ENV != "production", sourcemaps.write('.')))
+        .pipe(gulpif(process.env.NODE_ENV != 'production', sourcemaps.write('.')))
         .pipe(gulp.dest(Paths.DIST + '/stylesheets'))
-        .pipe(touch())
-})
+        .pipe(touch());
+});
 
+// Task: Concatenazione e minimizzazione JavaScript
 gulp.task('js-min', () => {
     return gulp
         .src(Paths.SOURCE_JS)
@@ -118,59 +126,44 @@ gulp.task('js-min', () => {
                 suffix: '.min',
             })
         )
-        .pipe(gulpif(process.env.NODE_ENV != "production", sourcemaps.write('.')))
+        .pipe(gulpif(process.env.NODE_ENV != 'production', sourcemaps.write('.')))
         .pipe(gulp.dest(Paths.DIST + '/javascripts'))
-        .pipe(touch())
-})
+        .pipe(touch());
+});
 
+// Task: Copia dei file statici
 gulp.task('copy', () => {
     return gulp
         .src(Paths.SOURCE_COPY, {
             base: '.',
         })
-        .pipe(gulp.dest(Paths.DIST))
-})
+        .pipe(gulp.dest(Paths.DIST));
+});
 
+// Task: Importazione dei font
 gulp.task('import-fonts', () => {
-    return gulp
-        .src(['node_modules/bootstrap-italia/src/fonts/**'])
-        .pipe(gulp.dest(Paths.DIST + '/fonts'))
-        .pipe(touch())
-})
+    return gulp.src(['node_modules/bootstrap-italia/src/fonts/**']).pipe(gulp.dest(Paths.DIST + '/fonts')).pipe(touch());
+});
 
+// Task: Importazione SVG di Bootstrap Italia
 gulp.task('import-bi-svg', () => {
-    return gulp
-        .src(Paths.SOURCE_BI_SVG)
-        .pipe(gulp.dest(Paths.DIST + '/svg'))
-})
+    return gulp.src(Paths.SOURCE_BI_SVG).pipe(gulp.dest(Paths.DIST + '/svg'));
+});
 
+// Task: Compressione in formato tar.gz
 gulp.task('zip', () => {
     return gulp
-        .src([
-            Paths.RELEASE_DIST + '/**/*',
-            '!' + Paths.RELEASE_DIST + '/**/*.tar.gz'
-        ])
-        .pipe(tar('wai-matomo-theme_' + pkg.version + '_auto_activate.tar', { mode: null }))
+        .src([`${Paths.RELEASE_DIST}/**/*`, `!${Paths.RELEASE_DIST}/**/*.tar.gz`])
+        .pipe(tar(`wai-matomo-theme_${pkg.version}_auto_activate.tar`, { mode: null }))
         .pipe(gzip())
-        .pipe(gulp.dest(Paths.RELEASE_DIST))
-})
+        .pipe(gulp.dest(Paths.RELEASE_DIST));
+});
 
-gulp.task(
-    'import-assets',
-    gulp.series(
-        'import-bi-svg',
-        'import-fonts',
-    )
-)
+// Task: Importazione degli asset
+gulp.task('import-assets', gulp.series('import-bi-svg', 'import-fonts'));
 
-gulp.task(
-    'build',
-    gulp.series(
-        'copy',
-        'import-assets',
-        'scss-min',
-        'js-min',
-    )
-)
+// Task: Build completo
+gulp.task('build', gulp.series('copy', 'import-assets', 'scss-min', 'js-min'));
 
-gulp.task('release', gulp.series('clean', 'build', 'zip'))
+// Task: Release
+gulp.task('release', gulp.series('clean', 'build', 'zip'));
