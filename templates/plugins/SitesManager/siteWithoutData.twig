@@ -1,0 +1,34 @@
+{% extends "dashboard.twig" %}
+
+{% block notification %}
+    {% include "@CoreHome/_notifications.twig" %}
+{% endblock %}
+
+{% block topcontrols %}
+    {% include "@CoreHome/_siteSelectHeader.twig" %}
+{% endblock %}
+
+{% set bodyId = 'site-without-data' %}
+
+{% block content %}
+
+    <div class="site-without-data">
+            <h1 id="start-tracking-data-header">
+                {{ 'SitesManager_SiteWithoutDataStartTrackingDataHeader'|translate }}
+            </h1>
+            <p>{{ 'SitesManager_SiteWithoutDataStartTrackingDataDescriptionLine2'|translate('<a rel="noreferrer noopener" class="ignoreSitesWithoutData" href="' ~ linkTo({module: 'SitesManager', action: 'ignoreNoDataMessage'}) ~'">', '</a>')|raw }}</p>
+            <p>&nbsp;</p>
+
+            <div piwik-widget-loader='{"module":"SitesManager","action":"siteWithoutDataTabs"}' loading-message="{{ 'SitesManager_DetectingYourSite'|translate|e('html_attr') }}..."></div>
+
+            {% set afterIntroEventContent %}{{ postEvent('Template.siteWithoutData.afterIntro') }}{% endset %}
+            <div class="no-data-footer row">
+                {% if afterIntroEventContent %}
+                    <hr/>
+                {% endif %}
+                {{ afterIntroEventContent }}
+            </div>
+            {{ postEvent('Template.siteWithoutData.afterTrackingHelp') }}
+    </div>
+
+{% endblock %}
