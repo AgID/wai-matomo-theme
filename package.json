@@ -31,7 +31,7 @@
     "url": "https://github.com/AgID/wai-matomo-theme.git/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^7.26.9",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
     "@babel/preset-env": "^7.26.0",
     "bootstrap-italia": "^1.4.3",
