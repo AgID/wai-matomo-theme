@@ -156,7 +156,7 @@ gulp.task('import-bi-svg', () => {
 gulp.task('zip', () => {
     return gulp
         .src([`${Paths.RELEASE_DIST}/**/*`, `!${Paths.RELEASE_DIST}/**/*.tar.gz`])
-        .pipe(tar(`wai-matomo-theme_${pkg.version}_auto_activate.tar`, { mode: null }))
+        .pipe(tar(`wai-matomo-theme_${pkg.version}_auto_activate.tar`))
         .pipe(gzip())
         .pipe(gulp.dest(Paths.RELEASE_DIST));
 });
