@@ -16,5 +16,8 @@
         "AgenziaCoesione": "Agency for territorial cohesion",
         "DFP": "Department of Public Administration",
         "PON": "PON Governance and institutional capacity 2014-2020"
+    },
+    "ScheduledReports": {
+        "AlsoSendReportToTheseEmails": "Send the report to these emails (one email per line):"
     }
 }

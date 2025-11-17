@@ -39,6 +39,14 @@
       }
     }
 
+    .custom-checkbox-report {
+      .matomo-form-field {
+        div.col:has(#report_email_me){
+          display: none;
+        }
+      }
+    }
+
     #content.admin {
       width: 100% !important;
     }
@@ -66,4 +74,5 @@
       }
     }
   }
+
 }
