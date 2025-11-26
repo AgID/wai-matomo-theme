@@ -16,5 +16,8 @@
         "AgenziaCoesione": "Agenzia per la coesione territoriale",
         "DFP": "Dipartimento della Funzione Pubblica",
         "PON": "PON Governance e capacità istituzionale 2014-2020"
+    },
+    "ScheduledReports": {
+        "AlsoSendReportToTheseEmails": "Invia il report a questi indirizzi (uno per riga):"
     }
 }

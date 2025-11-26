@@ -1,0 +1,14 @@
+{#
+    https://developer.matomo.org/4.x/guides/piwik-on-the-command-line
+    https://github.com/matomo-org/matomo/blob/4.15.1/plugins/ScheduledReports/templates/reportParametersScheduledReports.twig
+#}
+<div class="custom-checkbox-report">
+    <div
+        vue-entry="ScheduledReports.ReportParameters"
+        report-type="{{ reportType|default(null)|json_encode|e('html_attr') }}"
+        default-display-format="{{ defaultDisplayFormat|default(null)|json_encode|e('html_attr') }}"
+        default-email-me="false"
+        default-evolution-graph="{{ defaultEvolutionGraph|default(false)|json_encode|e('html_attr') }}"
+        current-user-email="{{ currentUserEmail|default(null)|json_encode|e('html_attr') }}"
+    ></div>
+</div>
